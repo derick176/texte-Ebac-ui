@@ -52,7 +52,7 @@ describe('funcionalidade: login', () => {
         
     });
 
-    it('deve fazer login com sucesso - Usando Comandos customizdos', () => {
+    it.only('deve fazer login com sucesso - Usando Comandos customizdos', () => {
         cy.login('derick.texte@gmail.com' , 'senha12345@')
         cy.get('.woocommerce-MyAccount-content > :nth-child(2)').should('contain' , 'Olá, derick.texte (não é derick.texte? Sair)')
     });

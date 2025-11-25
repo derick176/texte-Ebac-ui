@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/derick176/texte-Ebac-ui#readme",
   "dependencies": {
-    "@faker-js/faker": "^8.4.1",
+    "@faker-js/faker": "^8.4.1"
+  },
+  "devDependencies": {
     "cypress": "^13.6.0"
   }
 }
