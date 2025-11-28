@@ -9,26 +9,38 @@ describe('funcionalidade: produtos', () => {
     });
     
     it('deve selecionar um produto da lista', () => {
-        cy.get(' .product-block ')
-            //.first()
-            //.last()
-            //.eq(2)
-            .contains('Argus All-Weather Tank')
-            .click()
-
+        produtosPage.buscarProdutoLista('Aero Daily Fitness Tee')
             cy.get('#tab-title-description > a').should('contain' , 'Descrição')
 
     });
 
     it('Deve buscar um produto com sucesso', () => {
-        produtosPage.buscarProduto('')
+        let produto = 'Zeppelin Yoga Pant'
+        produtosPage.buscarProduto(produto)
+        cy.get('.product_title').should('contain', produto)
     });
 
     it('Deve visitar a página do produto', () => {
-        produtosPage.visitarProduto()
+        produtosPage.visitarProduto('Zeppelin Yoga Pant')
+        cy.get('.product_title').should('contain', 'Zeppelin Yoga Pant' )
     });
 
     it('Deve adicionar o produto ao carrinho', () => {
-        
+        let qtd = 7
+        produtosPage.buscarProduto('Aether Gym Pant')
+        produtosPage.addProdutoCarrinho('33', 'Brown', qtd)
+        cy.get('.woocommerce-message').should('contain', qtd + ' × “Aether Gym Pant” foram adicionados no seu carrinho.')
+    });
+
+    
+    it.only('Deve adicionar o produto ao carrinho buscando da massa de dados', () => {
+        cy.fixture('produtos').then(dados => {
+            produtosPage.buscarProduto(dados[0].nomeProduto)
+            produtosPage.addProdutoCarrinho(
+                dados [0].tamanho, 
+                dados[0].cor, 
+                dados[0].quantidade)
+            cy.get('.woocommerce-message').should('contain', dados[0].nomeProduto)
+        })       
     });
 });
